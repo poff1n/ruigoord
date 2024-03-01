@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #FC1A9F;
+  }
+
+  .svg-container {
+    float: left;
+    margin: 10px;
+  }
+
+  .svg-image {
+    min-width: 30px;
+    min-height: 30px;
+    fill: #FFFFFF;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 4, 0.2));
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out; /* Add smooth transition */
+  }
+
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+
+  .popup {
+    font-family: 'Borna', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .logo-container {
+          position: absolute;
+          top: 10px; /* Padding from the top */
+          left: 50%; /* Center horizontally */
+          transform: translateX(-50%); /* Center horizontally */
+          width: 40%; /* Width of the logo */
+          max-width: 200px; /* Maximum width of the logo */
+          padding: 20px; /* Padding around the logo */
+          box-sizing: border-box; /* Include padding in width calculation */
+      }
+      .logo {
+          width: 100%; /* Ensure the logo fills its container */
+          height: auto; /* Maintain aspect ratio */
+      }
+      @media screen and (max-width: 768px) {
+      .logo-container {
+      position: top;
+      width: 100%;
+  }
+  .svg-container {
+      margin-top: 20%;
+  }
+  }
+  @media screen and (max-width: 450px) {
+      .logo-container {
+      position: top;
+      width: 100%;
+  }
+  .svg-container {
+      margin-top: 25%;
+  }
+  }
