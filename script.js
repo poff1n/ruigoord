@@ -8,18 +8,20 @@ const squares = Array.from(svgImages).map(svg => {
     id: svg.getAttribute('id')
   };
 });
-window.onload = function() {
-// Update the sizes of the objects after the page has loaded
-updateSizes();
 
-// Add transition to the objects after a short delay to ensure initial size change is included
-setTimeout(() => {
-const svgImages = document.querySelectorAll('.svg-image');
-svgImages.forEach(svg => {
-  svg.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out';
-});
-}, 100); // Adjust the delay time as needed
+window.onload = function() {
+  // Update the sizes of the objects after the page has loaded
+  updateSizes();
+
+  // Add transition to the objects after a short delay to ensure initial size change is included
+  setTimeout(() => {
+    const svgImages = document.querySelectorAll('.svg-image');
+    svgImages.forEach(svg => {
+      svg.style.transition = 'height 0.5s ease-in-out'; // Apply transition only to height
+    });
+  }, 100); // Adjust the delay time as needed
 };
+
 function showPopup() {
   document.getElementById('popupContainer').style.display = 'block';
 }
@@ -51,9 +53,20 @@ function updateSizes() {
       const squareElement = document.getElementById(square.id);
       if (squareElement) {
         const distance = calculateDistance(userLat, userLng, square.lat, square.lng);
-        const size = Math.max(30, Math.min(400, 400 - (distance / 5)));
-        squareElement.style.width = `${size}px`;
-        squareElement.style.height = `${size}px`;
+        
+        // Adjust the formula for scaling the height smoothly between 10 and 200 meters
+        let height;
+        if (distance <= 10) {
+          height = 400; // Max height at 10 meters
+        } else if (distance >= 200) {
+          height = 30; // Min height at 200 meters
+        } else {
+          // Scale the height smoothly between 10 and 200 meters
+          height = 400 - (distance - 10) * (370 / 190); // Adjust this value as needed
+        }
+
+        squareElement.style.height = `${height}px`;
+        squareElement.style.width = 'auto'; // Set width to automatic
       }
     });
   }, error => {
@@ -63,7 +76,7 @@ function updateSizes() {
     squares.forEach(square => {
       const squareElement = document.getElementById(square.id);
       if (squareElement) {
-        squareElement.style.width = '30px';
+        squareElement.style.width = 'auto';
         squareElement.style.height = '30px';
       }
     });
@@ -71,4 +84,4 @@ function updateSizes() {
 }
 
 window.onload = updateSizes;
-setInterval(updateSizes, 500); // Update location of the visitor every second
+setInterval(updateSizes, 500); // Update location of the visitor every second.
