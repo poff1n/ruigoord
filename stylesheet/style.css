@@ -15,6 +15,7 @@ body {
   }
 
   .svg-image {
+    margin: 20px;
     min-width: 30px;
     min-height: 30px;
     fill: #FFFFFF;
@@ -48,15 +49,16 @@ body {
   }
 
   .logo-container {
-          position: absolute;
-          top: 10px; /* Padding from the top */
-          left: 50%; /* Center horizontally */
-          transform: translateX(-50%); /* Center horizontally */
-          width: 40%; /* Width of the logo */
-          max-width: 200px; /* Maximum width of the logo */
-          padding: 20px; /* Padding around the logo */
-          box-sizing: border-box; /* Include padding in width calculation */
-      }
+    position: absolute;
+    top: 10px; /* Padding from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    width: 40%; /* Width of the logo */
+    max-width: 200px; /* Maximum width of the logo */
+    padding: 20px; /* Padding around the logo */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
       .logo {
           width: 100%; /* Ensure the logo fills its container */
           height: auto; /* Maintain aspect ratio */
