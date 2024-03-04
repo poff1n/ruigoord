@@ -54,19 +54,27 @@ function updateSizes() {
       if (squareElement) {
         const distance = calculateDistance(userLat, userLng, square.lat, square.lng);
         
-        // Adjust the formula for scaling the height smoothly between 10 and 200 meters
-        let height;
+        // Adjust the size based on the distance
+        let size;
         if (distance <= 10) {
-          height = 400; // Max height at 10 meters
+          size = 400; // Max size at 10 meters
         } else if (distance >= 200) {
-          height = 30; // Min height at 200 meters
+          size = 30; // Min size at 200 meters
         } else {
-          // Scale the height smoothly between 10 and 200 meters
-          height = 400 - (distance - 10) * (370 / 190); // Adjust this value as needed
+          // Linearly interpolate size between 10 and 200 meters
+          size = 400 - (distance - 10) * (370 / 190); // Adjust this value as needed
         }
 
-        squareElement.style.height = `${height}px`;
-        squareElement.style.width = 'auto'; // Set width to automatic
+        // Apply the size to the element
+        squareElement.style.width = `${size}px`;
+        squareElement.style.height = `${size}px`;
+
+        // Apply pulsing animation only when the user is within 30 meters
+        if (distance <= 30) {
+          squareElement.classList.add('pulsing');
+        } else {
+          squareElement.classList.remove('pulsing');
+        }
       }
     });
   }, error => {
@@ -76,12 +84,14 @@ function updateSizes() {
     squares.forEach(square => {
       const squareElement = document.getElementById(square.id);
       if (squareElement) {
-        squareElement.style.width = 'auto';
+        squareElement.style.width = '30px';
         squareElement.style.height = '30px';
+        squareElement.classList.remove('pulsing'); // Remove pulsing animation
       }
     });
   });
 }
+
 
 window.onload = updateSizes;
 setInterval(updateSizes, 500); // Update location of the visitor every second.
